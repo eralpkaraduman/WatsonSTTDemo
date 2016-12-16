@@ -1,0 +1,11 @@
+//
+//  prod.xcconfig
+//  WatsonSTT
+//
+//  Created by Eralp Karaduman on 12/16/16.
+//  Copyright © 2016 Super Damage. All rights reserved.
+//
+
+BLUEMIX_WATSON_STT_URL =
+BLUEMIX_WATSON_STT_USERNAME =
+BLUEMIX_WATSON_STT_PASSWORD = 

@@ -10,6 +10,8 @@
 		530249071E041C9600D29D66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530249061E041C9600D29D66 /* AppDelegate.swift */; };
 		5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5302490D1E041C9600D29D66 /* Assets.xcassets */; };
 		530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */; };
+		53A109801E043800009BA4AD /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1097F1E043800009BA4AD /* AudioRecorder.swift */; };
+		53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109821E0439E6009BA4AD /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		530249101E041C9600D29D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		530249121E041C9600D29D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530249181E041EA000D29D66 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
+		53A1097F1E043800009BA4AD /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		53A109821E0439E6009BA4AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +42,7 @@
 			children = (
 				530249051E041C9600D29D66 /* WatsonSTT */,
 				530249041E041C9600D29D66 /* Products */,
+				53A109811E0439E6009BA4AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,8 +62,17 @@
 				5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */,
 				530249121E041C9600D29D66 /* Info.plist */,
 				530249181E041EA000D29D66 /* prod.xcconfig */,
+				53A1097F1E043800009BA4AD /* AudioRecorder.swift */,
 			);
 			path = WatsonSTT;
+			sourceTree = "<group>";
+		};
+		53A109811E0439E6009BA4AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53A109821E0439E6009BA4AD /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A109801E043800009BA4AD /* AudioRecorder.swift in Sources */,
 				530249071E041C9600D29D66 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

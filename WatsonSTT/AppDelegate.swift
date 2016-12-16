@@ -12,6 +12,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var audioRecorder: AudioRecorder!
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -21,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(socketUrlString)
         print(username)
         print(password)
+
+        audioRecorder = AudioRecorder()
+        audioRecorder.startRecording()
+
         return true
     }
 }

@@ -6,76 +6,138 @@
 //  Copyright © 2016 Super Damage. All rights reserved.
 //
 
+// boilerplate implementation based on:
+// https://developer.apple.com/library/content/documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/AQRecord/RecordingAudio.html#//apple_ref/doc/uid/TP40005343-CH4-SW1
+
+import Foundation
 import AVFoundation
+import AudioToolbox
+
+protocol AudioRecorderDelegate: class {
+    func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data)
+}
 
 class AudioRecorder: NSObject {
 
-    let recordInterval: TimeInterval = 2
+    private(set) var format = AudioStreamBasicDescription()
+    let session = AVAudioSession.sharedInstance()
+    private var queue: AudioQueueRef? = nil
+    private (set) var recording = false
 
-    private (set) var  recording = false
-
-    private let recorder: AVAudioRecorder
+    weak var delegate: AudioRecorderDelegate?
 
     override init() {
 
-        let documentsPath = NSSearchPathForDirectoriesInDomains(
-            .documentDirectory,
-            .userDomainMask, true
-        ).first!
-
-        let tempSoundFile = "temp.caf"
-        let tempSoundPath = NSString(string: documentsPath).appendingPathComponent(tempSoundFile)
-        let tempSoundURL = URL(fileURLWithPath: tempSoundPath)
-
-        recorder = try! AVAudioRecorder(url: tempSoundURL, settings: [
-            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
-            AVEncoderBitRateKey: 16,
-            AVNumberOfChannelsKey: 2,
-            AVSampleRateKey: 44100
-        ])
-
-        super.init()
-
-        recorder.delegate = self
+        var formatFlags = AudioFormatFlags()
+        formatFlags |= kLinearPCMFormatFlagIsSignedInteger
+        formatFlags |= kLinearPCMFormatFlagIsPacked
+        format = AudioStreamBasicDescription(
+            mSampleRate: 16000.0,
+            mFormatID: kAudioFormatLinearPCM,
+            mFormatFlags: formatFlags,
+            mBytesPerPacket: UInt32(1*MemoryLayout<Int16>.stride),
+            mFramesPerPacket: 1,
+            mBytesPerFrame: UInt32(1*MemoryLayout<Int16>.stride),
+            mChannelsPerFrame: 1,
+            mBitsPerChannel: 16,
+            mReserved: 0
+        )
 
     }
 
-    func continueRecording() {
-        recorder.record(forDuration: recordInterval)
-    }
+    internal var audioInputCallback: AudioQueueInputCallback = {
+        recorderPointer, queue, bufferRef, startTimeRef, numPackets, _ in
 
-    func startRecording() {
-        recording = true
-        recorder.prepareToRecord()
-        continueRecording()
-    }
+        guard let recorderPointer = recorderPointer else { return }
+        let recorder = Unmanaged<AudioRecorder>.fromOpaque(recorderPointer).takeUnretainedValue()
 
-    func stopRecording() {
-        guard recorder.isRecording else { return }
-        recorder.stop()
-    }
+        let buffer = bufferRef.pointee
+        let startTime = startTimeRef.pointee
 
-    func processRecordedSound() {
+        var numPackets = numPackets
+        if (numPackets == 0 && recorder.format.mBytesPerPacket != 0) {
+            numPackets = buffer.mAudioDataByteSize / recorder.format.mBytesPerPacket
+        }
 
+        let pcm = Data(bytes: buffer.mAudioData, count: Int(buffer.mAudioDataByteSize))
+        if pcm.count > 0 {
+            recorder.delegate?.audioRecorder(recorder, didRecordData: pcm)
+        }
 
+        guard recorder.recording else { return }
 
-    }
-
-}
-
-extension AudioRecorder: AVAudioRecorderDelegate {
-
-    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-
-    }
-
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-
-        processRecordedSound()
-
-        if recording {
-            continueRecording()
+        if let queue = recorder.queue {
+            AudioQueueEnqueueBuffer(queue, bufferRef, 0, nil)
         }
     }
 
+    func prepare() {
+
+        let userDataPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
+
+        AudioQueueNewInput(
+            &format,
+            audioInputCallback,
+            userDataPointer,
+            nil,
+            nil,
+            0,
+            &queue
+        )
+
+        guard let queue = queue else { return }
+
+        var formatSize = UInt32(MemoryLayout<AudioStreamBasicDescription>.stride)
+        AudioQueueGetProperty(queue, kAudioQueueProperty_StreamDescription, &format, &formatSize)
+
+        let numBuffers = 5
+        let bufferSize = deriveBufferSize(seconds: 0.5)
+        for _ in 0..<numBuffers {
+            let bufferRef = UnsafeMutablePointer<AudioQueueBufferRef?>.allocate(capacity: 1)
+            AudioQueueAllocateBuffer(queue, bufferSize, bufferRef)
+            if let buffer = bufferRef.pointee {
+                AudioQueueEnqueueBuffer(queue, buffer, 0, nil)
+            }
+        }
+
+    }
+
+    func startRecording() throws {
+
+        guard !recording else { return }
+        self.prepare()
+        self.recording = true
+        guard let queue = queue else { return }
+        AudioQueueStart(queue, nil)
+    }
+
+    func stopRecording() throws {
+        guard recording else { return }
+        guard let queue = queue else { return }
+        recording = false
+
+        AudioQueueStop(queue, true)
+        AudioQueueDispose(queue, false)
+    }
+
+    private func deriveBufferSize(seconds: Float64) -> UInt32 {
+        guard let queue = queue else { return 0 }
+        let maxBufferSize = UInt32(0x50000)
+        var maxPacketSize = format.mBytesPerPacket
+
+        if maxPacketSize == 0 {
+
+            var maxVBRPacketSize = UInt32(MemoryLayout<UInt32>.stride)
+            AudioQueueGetProperty(
+                queue,
+                kAudioQueueProperty_MaximumOutputPacketSize,
+                &maxPacketSize,
+                &maxVBRPacketSize
+            )
+        }
+
+        let numBytesForTime = UInt32(format.mSampleRate * Float64(maxPacketSize) * seconds)
+        let bufferSize = (numBytesForTime < maxBufferSize ? numBytesForTime : maxBufferSize)
+        return bufferSize
+    }
 }

@@ -25,9 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(password)
 
         audioRecorder = AudioRecorder()
-        audioRecorder.startRecording()
+        audioRecorder.delegate = self
+        try! audioRecorder.startRecording()
 
         return true
+    }
+}
+
+extension AppDelegate: AudioRecorderDelegate {
+    func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
+        print(data.count)
     }
 }
 

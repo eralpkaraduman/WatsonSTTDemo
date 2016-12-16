@@ -12,6 +12,7 @@
 		530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */; };
 		53A109801E043800009BA4AD /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1097F1E043800009BA4AD /* AudioRecorder.swift */; };
 		53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109821E0439E6009BA4AD /* AVFoundation.framework */; };
+		53A109851E046488009BA4AD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109841E046488009BA4AD /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		530249181E041EA000D29D66 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
 		53A1097F1E043800009BA4AD /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		53A109821E0439E6009BA4AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		53A109841E046488009BA4AD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A109851E046488009BA4AD /* AudioToolbox.framework in Frameworks */,
 				53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +73,7 @@
 		53A109811E0439E6009BA4AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				53A109841E046488009BA4AD /* AudioToolbox.framework */,
 				53A109821E0439E6009BA4AD /* AVFoundation.framework */,
 			);
 			name = Frameworks;

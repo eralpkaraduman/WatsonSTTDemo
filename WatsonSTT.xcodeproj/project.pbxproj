@@ -152,6 +152,7 @@
 				530249011E041C9600D29D66 /* Resources */,
 				22E51230943E1BD7FE788C16 /* [CP] Embed Pods Frameworks */,
 				3427925680C32D64EBF711D2 /* [CP] Copy Pods Resources */,
+				53A1ECF21E04812E000EFDE9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -254,6 +255,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		53A1ECF21E04812E000EFDE9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -64,6 +64,10 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
-#MacOS
+# MacOS
 
 .DS_Store
+.swp
+
+# Project spesific
+WatsonSTT/prod.xcconfig

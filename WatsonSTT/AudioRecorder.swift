@@ -22,7 +22,7 @@ class AudioRecorder: NSObject {
     private(set) var format = AudioStreamBasicDescription()
     let session = AVAudioSession.sharedInstance()
     private var queue: AudioQueueRef? = nil
-    private (set) var recording = false
+    private(set) var recording = false
 
     weak var delegate: AudioRecorderDelegate?
 
@@ -55,7 +55,7 @@ class AudioRecorder: NSObject {
         let startTime = startTimeRef.pointee
 
         var numPackets = numPackets
-        if (numPackets == 0 && recorder.format.mBytesPerPacket != 0) {
+        if numPackets == 0 && recorder.format.mBytesPerPacket != 0 {
             numPackets = buffer.mAudioDataByteSize / recorder.format.mBytesPerPacket
         }
 
@@ -71,7 +71,7 @@ class AudioRecorder: NSObject {
         }
     }
 
-    func prepare() {
+    private func prepare() {
 
         let userDataPointer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
 

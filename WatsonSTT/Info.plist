@@ -36,6 +36,8 @@
 	<string>wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize</string>
 	<key>BLUEMIX_WATSON_STT_USERNAME</key>
 	<string>$(BLUEMIX_WATSON_STT_USERNAME)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Requires microphone access for recording voice to be converted to text</string>
 	<key>BLUEMIX_WATSON_STT_PASSWORD</key>
 	<string>$(BLUEMIX_WATSON_STT_PASSWORD)</string>
 </dict>

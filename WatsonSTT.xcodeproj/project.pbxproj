@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		530249071E041C9600D29D66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530249061E041C9600D29D66 /* AppDelegate.swift */; };
-		530249091E041C9600D29D66 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530249081E041C9600D29D66 /* ViewController.swift */; };
-		5302490C1E041C9600D29D66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490A1E041C9600D29D66 /* Main.storyboard */; };
 		5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5302490D1E041C9600D29D66 /* Assets.xcassets */; };
 		530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -17,8 +15,6 @@
 /* Begin PBXFileReference section */
 		530249031E041C9600D29D66 /* WatsonSTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatsonSTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		530249061E041C9600D29D66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		530249081E041C9600D29D66 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5302490B1E041C9600D29D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5302490D1E041C9600D29D66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		530249101E041C9600D29D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		530249121E041C9600D29D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,8 +52,6 @@
 			isa = PBXGroup;
 			children = (
 				530249061E041C9600D29D66 /* AppDelegate.swift */,
-				530249081E041C9600D29D66 /* ViewController.swift */,
-				5302490A1E041C9600D29D66 /* Main.storyboard */,
 				5302490D1E041C9600D29D66 /* Assets.xcassets */,
 				5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */,
 				530249121E041C9600D29D66 /* Info.plist */,
@@ -128,7 +122,6 @@
 			files = (
 				530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */,
 				5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */,
-				5302490C1E041C9600D29D66 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +132,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530249091E041C9600D29D66 /* ViewController.swift in Sources */,
 				530249071E041C9600D29D66 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +139,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5302490A1E041C9600D29D66 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5302490B1E041C9600D29D66 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -259,6 +243,7 @@
 		};
 		530249161E041C9600D29D66 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 530249181E041EA000D29D66 /* prod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;
@@ -272,6 +257,7 @@
 		};
 		530249171E041C9600D29D66 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 530249181E041EA000D29D66 /* prod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;
@@ -302,6 +288,7 @@
 				530249171E041C9600D29D66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

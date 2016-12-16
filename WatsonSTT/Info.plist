@@ -22,8 +22,6 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -34,5 +32,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>BLUEMIX_WATSON_STT_STREAM_URL</key>
+	<string>wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize</string>
+	<key>BLUEMIX_WATSON_STT_USERNAME</key>
+	<string>$(BLUEMIX_WATSON_STT_USERNAME)</string>
+	<key>BLUEMIX_WATSON_STT_PASSWORD</key>
+	<string>$(BLUEMIX_WATSON_STT_PASSWORD)</string>
 </dict>
 </plist>

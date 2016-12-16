@@ -6,6 +6,5 @@
 //  Copyright © 2016 Super Damage. All rights reserved.
 //
 
-BLUEMIX_WATSON_STT_URL =
-BLUEMIX_WATSON_STT_USERNAME =
-BLUEMIX_WATSON_STT_PASSWORD = 
+BLUEMIX_WATSON_STT_USERNAME = username-not-set
+BLUEMIX_WATSON_STT_PASSWORD = password-not-set

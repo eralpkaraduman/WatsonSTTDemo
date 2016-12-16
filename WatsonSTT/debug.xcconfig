@@ -1,0 +1,11 @@
+//
+//  debug.xcconfig
+//  WatsonSTT
+//
+//  Created by Eralp Karaduman on 12/16/16.
+//  Copyright © 2016 Super Damage. All rights reserved.
+//
+
+#include "prod.xcconfig"
+#include "Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT.debug.xcconfig"
+

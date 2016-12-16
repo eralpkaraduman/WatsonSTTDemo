@@ -1,0 +1,15 @@
+PODS:
+  - PermissionScope (1.1.1)
+  - Starscream (2.0.2)
+
+DEPENDENCIES:
+  - PermissionScope (~> 1.1)
+  - Starscream (~> 2.0)
+
+SPEC CHECKSUMS:
+  PermissionScope: a30c16e015779ba27c97c124e7539e27b5829de2
+  Starscream: 6c135a34e0a6e60cedaa0b30db67a4c05cf7cd38
+
+PODFILE CHECKSUM: 5b3e6d023aeef40f75337edb1530fd9977aa249f
+
+COCOAPODS: 1.1.1

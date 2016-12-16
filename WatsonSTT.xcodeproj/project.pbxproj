@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44807B73B81F24C94F5E5E9F /* Pods_WatsonSTT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9128DCB5F507D33BAA55296 /* Pods_WatsonSTT.framework */; };
 		530249071E041C9600D29D66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530249061E041C9600D29D66 /* AppDelegate.swift */; };
 		5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5302490D1E041C9600D29D66 /* Assets.xcassets */; };
 		530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A2ACC175304C3E07D3BD9F0 /* Pods-WatsonSTT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatsonSTT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT.debug.xcconfig"; sourceTree = "<group>"; };
+		23DBD30819DE646279DB7420 /* Pods-WatsonSTT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatsonSTT.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT.release.xcconfig"; sourceTree = "<group>"; };
 		530249031E041C9600D29D66 /* WatsonSTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatsonSTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		530249061E041C9600D29D66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5302490D1E041C9600D29D66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -25,6 +28,9 @@
 		53A1097F1E043800009BA4AD /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		53A109821E0439E6009BA4AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		53A109841E046488009BA4AD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		53A1ECF01E047E75000EFDE9 /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		F9128DCB5F507D33BAA55296 /* Pods_WatsonSTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatsonSTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +40,7 @@
 			files = (
 				53A109851E046488009BA4AD /* AudioToolbox.framework in Frameworks */,
 				53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */,
+				44807B73B81F24C94F5E5E9F /* Pods_WatsonSTT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +53,7 @@
 				530249051E041C9600D29D66 /* WatsonSTT */,
 				530249041E041C9600D29D66 /* Products */,
 				53A109811E0439E6009BA4AD /* Frameworks */,
+				C5EE7702027551FF6EAE2BA2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +68,7 @@
 		530249051E041C9600D29D66 /* WatsonSTT */ = {
 			isa = PBXGroup;
 			children = (
+				53A1ECF11E047F58000EFDE9 /* Config */,
 				53A109871E047AC4009BA4AD /* Coordinators */,
 				53A109881E047AC4009BA4AD /* Models */,
 				53A109891E047AC4009BA4AD /* ViewModels */,
@@ -68,7 +77,6 @@
 				5302490D1E041C9600D29D66 /* Assets.xcassets */,
 				5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */,
 				530249121E041C9600D29D66 /* Info.plist */,
-				530249181E041EA000D29D66 /* prod.xcconfig */,
 				53A1097F1E043800009BA4AD /* AudioRecorder.swift */,
 			);
 			path = WatsonSTT;
@@ -79,6 +87,7 @@
 			children = (
 				53A109841E046488009BA4AD /* AudioToolbox.framework */,
 				53A109821E0439E6009BA4AD /* AVFoundation.framework */,
+				F9128DCB5F507D33BAA55296 /* Pods_WatsonSTT.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,6 +120,25 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		53A1ECF11E047F58000EFDE9 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				530249181E041EA000D29D66 /* prod.xcconfig */,
+				53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */,
+				53A1ECF01E047E75000EFDE9 /* release.xcconfig */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		C5EE7702027551FF6EAE2BA2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A2ACC175304C3E07D3BD9F0 /* Pods-WatsonSTT.debug.xcconfig */,
+				23DBD30819DE646279DB7420 /* Pods-WatsonSTT.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -118,9 +146,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 530249151E041C9600D29D66 /* Build configuration list for PBXNativeTarget "WatsonSTT" */;
 			buildPhases = (
+				1591366FA72B1014D5E36463 /* [CP] Check Pods Manifest.lock */,
 				530248FF1E041C9600D29D66 /* Sources */,
 				530249001E041C9600D29D66 /* Frameworks */,
 				530249011E041C9600D29D66 /* Resources */,
+				22E51230943E1BD7FE788C16 /* [CP] Embed Pods Frameworks */,
+				3427925680C32D64EBF711D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,6 +208,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1591366FA72B1014D5E36463 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		22E51230943E1BD7FE788C16 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3427925680C32D64EBF711D2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		530248FF1E041C9600D29D66 /* Sources */ = {
@@ -295,7 +374,7 @@
 		};
 		530249161E041C9600D29D66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 530249181E041EA000D29D66 /* prod.xcconfig */;
+			baseConfigurationReference = 53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;
@@ -309,7 +388,7 @@
 		};
 		530249171E041C9600D29D66 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 530249181E041EA000D29D66 /* prod.xcconfig */;
+			baseConfigurationReference = 53A1ECF01E047E75000EFDE9 /* release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;

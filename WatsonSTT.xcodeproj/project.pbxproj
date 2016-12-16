@@ -60,6 +60,10 @@
 		530249051E041C9600D29D66 /* WatsonSTT */ = {
 			isa = PBXGroup;
 			children = (
+				53A109871E047AC4009BA4AD /* Coordinators */,
+				53A109881E047AC4009BA4AD /* Models */,
+				53A109891E047AC4009BA4AD /* ViewModels */,
+				53A1098A1E047AC4009BA4AD /* Views */,
 				530249061E041C9600D29D66 /* AppDelegate.swift */,
 				5302490D1E041C9600D29D66 /* Assets.xcassets */,
 				5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */,
@@ -77,6 +81,34 @@
 				53A109821E0439E6009BA4AD /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53A109871E047AC4009BA4AD /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		53A109881E047AC4009BA4AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		53A109891E047AC4009BA4AD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		53A1098A1E047AC4009BA4AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

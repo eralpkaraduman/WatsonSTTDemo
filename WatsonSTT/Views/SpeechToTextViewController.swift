@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SpeechToTextViewController: UIViewController {
 
@@ -67,17 +68,17 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
             recordButton.recordState = .idle
         case .auth:
 
-            print("authenticating...")
-            //ButtonState.preparing.configure(button: recordButton)
+            SVProgressHUD.show(withStatus: "Authenticating")
 
         case .connectingToSocket:
 
-            print("connecting to socket...")
-            //ButtonState.preparing.configure(button: recordButton)
+            SVProgressHUD.show(withStatus: "Connecting")
 
         case .ready:
 
             recordButton.recordState = .idle
+            self.resultViewModel = nil
+            SVProgressHUD.dismiss()
 
         case .recognizing:
 

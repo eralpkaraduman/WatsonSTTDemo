@@ -1,15 +1,18 @@
 PODS:
   - PermissionScope (1.1.1)
   - Starscream (2.0.2)
+  - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
   - PermissionScope (~> 1.1)
   - Starscream (~> 2.0)
+  - SVProgressHUD (~> 2.1)
 
 SPEC CHECKSUMS:
   PermissionScope: a30c16e015779ba27c97c124e7539e27b5829de2
   Starscream: 6c135a34e0a6e60cedaa0b30db67a4c05cf7cd38
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: 5b3e6d023aeef40f75337edb1530fd9977aa249f
+PODFILE CHECKSUM: 92a657ba0a572b16c7063b6c77fe60b2195eb384
 
 COCOAPODS: 1.1.1

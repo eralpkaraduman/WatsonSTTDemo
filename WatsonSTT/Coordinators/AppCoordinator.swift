@@ -8,6 +8,7 @@
 
 import UIKit
 import PermissionScope
+import SVProgressHUD
 
 class AppCoordinator: Coordinator {
 
@@ -24,6 +25,8 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
+
+        SVProgressHUD.setDefaultStyle(.dark)
 
         if case .authorized = PermissionScope().statusMicrophone() {
             showRecorderScreen()

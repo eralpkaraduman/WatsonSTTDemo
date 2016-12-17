@@ -8,4 +8,5 @@ target 'WatsonSTT' do
   # Pods for WatsonSTT
   pod 'PermissionScope', '~> 1.1'
   pod 'Starscream', '~> 2.0'
+  pod 'SVProgressHUD', '~> 2.1'
 end

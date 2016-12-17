@@ -10,6 +10,14 @@ import UIKit
 
 class SpeechToTextViewController: UIViewController {
 
+    @IBOutlet weak var transcriptLabel: UILabel!
+
+    var resultViewModel: SpeechRecognitionResultViewModel? = nil {
+        didSet {
+            transcriptLabel.text = resultViewModel?.transcriptText ?? ""
+        }
+    }
+
     let speechRecognitionClient = SpeechRecognitionClient()
     let recordButton = UIButton(type: .roundedRect)
 
@@ -75,6 +83,10 @@ class SpeechToTextViewController: UIViewController {
         speechRecognitionClient?.prepare()
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     func recordButtonDidTriggerTap() {
 
         guard let client = speechRecognitionClient else { return }
@@ -119,9 +131,6 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
         speechRecognitionClient: SpeechRecognitionClient,
         didReceiveResult result: SpeechRecognitionResult) {
 
-        let transcript = result.alternatives.first?.transcript ?? ""
-        print("received transcript: \(transcript)")
-
+        self.resultViewModel = SpeechRecognitionResultViewModel(result: result)
     }
-
 }

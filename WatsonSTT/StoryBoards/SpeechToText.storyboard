@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cxC-Fg-ImK">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Speech To Text View Controller-->
+        <scene sceneID="4Ow-Dp-UjD">
+            <objects>
+                <viewController id="cxC-Fg-ImK" customClass="SpeechToTextViewController" customModule="WatsonSTT" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T3i-DD-VBE"/>
+                        <viewControllerLayoutGuide type="bottom" id="uRs-bR-6cy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yqq-Gx-oJe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fVD-0m-kMu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="477"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Transcript text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-iX-Jfw">
+                                        <rect key="frame" x="16" y="16" width="288" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bYg-iX-Jfw" secondAttribute="trailing" constant="16" id="DOd-kr-XcT"/>
+                                    <constraint firstItem="bYg-iX-Jfw" firstAttribute="centerX" secondItem="fVD-0m-kMu" secondAttribute="centerX" id="NRM-xU-sF7"/>
+                                    <constraint firstItem="bYg-iX-Jfw" firstAttribute="leading" secondItem="fVD-0m-kMu" secondAttribute="leading" constant="16" id="NtX-WH-LgC"/>
+                                    <constraint firstAttribute="bottom" secondItem="bYg-iX-Jfw" secondAttribute="bottom" constant="16" id="SMa-Qq-PeY"/>
+                                    <constraint firstItem="bYg-iX-Jfw" firstAttribute="top" secondItem="fVD-0m-kMu" secondAttribute="top" constant="16" id="gnc-Zt-nQY"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icz-kU-LFv">
+                                <rect key="frame" x="131" y="493" width="58" height="59"/>
+                                <state key="normal" image="record-button-gray"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fVD-0m-kMu" secondAttribute="trailing" id="7zp-Rq-Gmo"/>
+                            <constraint firstItem="fVD-0m-kMu" firstAttribute="leading" secondItem="Yqq-Gx-oJe" secondAttribute="leading" id="HOK-Og-HfR"/>
+                            <constraint firstItem="fVD-0m-kMu" firstAttribute="top" secondItem="Yqq-Gx-oJe" secondAttribute="topMargin" id="Pqw-cO-XtB"/>
+                            <constraint firstItem="Icz-kU-LFv" firstAttribute="top" secondItem="fVD-0m-kMu" secondAttribute="bottom" constant="16" id="lLH-GE-L7c"/>
+                            <constraint firstItem="Icz-kU-LFv" firstAttribute="centerX" secondItem="Yqq-Gx-oJe" secondAttribute="centerX" id="rr3-Lw-sTA"/>
+                            <constraint firstItem="uRs-bR-6cy" firstAttribute="top" secondItem="Icz-kU-LFv" secondAttribute="bottom" constant="16" id="zX3-DO-V6l"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="transcriptLabel" destination="bYg-iX-Jfw" id="yx5-hB-3jR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="STN-er-Odp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144.80000000000001" y="105.69715142428787"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="record-button-gray" width="58" height="59"/>
+    </resources>
+</document>

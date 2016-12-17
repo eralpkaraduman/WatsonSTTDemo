@@ -51,6 +51,10 @@ class PermissionRequestViewController: UIViewController {
         checkPermissions()
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     func setupButtonDidTriggerTap() {
 
         checkPermissions()

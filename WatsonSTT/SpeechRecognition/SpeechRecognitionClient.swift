@@ -227,6 +227,10 @@ extension SpeechRecognitionClient :SocketClientDelegate {
             if result.isFinal {
                 receivedFinalResult()
             }
+
+
+            let transcript = result.alternatives.first?.transcript ?? ""
+            print("received transcript: \(transcript)")
         }
     }
 }

@@ -22,8 +22,10 @@ class SpeechToTextCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = SpeechToTextViewController()
 
-        window.rootViewController = vc
+        let sb = UIStoryboard.init(name: "SpeechToText", bundle: nil)
+        if let vc = sb.instantiateInitialViewController() as? SpeechToTextViewController {
+            window.rootViewController = vc
+        }
     }
 }

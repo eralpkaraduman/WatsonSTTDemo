@@ -32,12 +32,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>BLUEMIX_WATSON_STT_STREAM_URL</key>
-	<string>wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize</string>
-	<key>BLUEMIX_WATSON_STT_USERNAME</key>
-	<string>$(BLUEMIX_WATSON_STT_USERNAME)</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Requires microphone access for recording voice to be converted to text</string>
+	<key>BLUEMIX_WATSON_STT_STREAM_URL</key>
+	<string>https://stream.watsonplatform.net/speech-to-text/api/v1/recognize</string>
+	<key>BLUEMIX_WATSON_STT_TOKEN_URL</key>
+	<string>https://stream.watsonplatform.net/authorization/api/v1/token</string>
+	<key>BLUEMIX_WATSON_STT_USERNAME</key>
+	<string>$(BLUEMIX_WATSON_STT_USERNAME)</string>
 	<key>BLUEMIX_WATSON_STT_PASSWORD</key>
 	<string>$(BLUEMIX_WATSON_STT_PASSWORD)</string>
 </dict>

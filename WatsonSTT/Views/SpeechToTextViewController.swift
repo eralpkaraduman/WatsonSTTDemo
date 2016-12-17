@@ -10,21 +10,44 @@ import UIKit
 
 class SpeechToTextViewController: UIViewController {
 
-    let audioRecorder = AudioRecorder()
+    let speechRecognitionClient = SpeechRecognitionClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        audioRecorder.delegate = self
 
-        try? audioRecorder.startRecording()
+        speechRecognitionClient.delegate = self
+        speechRecognitionClient.start()
+
     }
 }
 
-extension SpeechToTextViewController: AudioRecorderDelegate {
+extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
 
-    func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
-        print(data.count)
+    func speechRecognitionClientBeganAuthenticating(
+        speechRecognitionClient: SpeechRecognitionClient) {
+
     }
+
+    func speechRecognitionClientCompleteAuthenticating(
+        speechRecognitionClient: SpeechRecognitionClient,
+        success: Bool) {
+
+        if success {
+            speechRecognitionClient.start()
+        }
+        
+    }
+
+    func speechRecognitionClientStartedStreaming(
+        speechRecognitionClient: SpeechRecognitionClient) {
+
+    }
+
+    func speechRecognitionClientEndedStreaming(
+        speechRecognitionClient: SpeechRecognitionClient) {
+
+    }
+
 }

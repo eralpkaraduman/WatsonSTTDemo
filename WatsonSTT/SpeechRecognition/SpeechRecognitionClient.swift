@@ -19,6 +19,11 @@ protocol SpeechRecognitionClientDelegate: class {
         speechRecognitionClient: SpeechRecognitionClient,
         didReceiveResult result: SpeechRecognitionResult
     )
+
+    func speechRecognitionClient (
+        speechRecognitionClient: SpeechRecognitionClient,
+        didFailWithError error: Any?
+    )
 }
 
 class SpeechRecognitionClient {
@@ -36,7 +41,7 @@ class SpeechRecognitionClient {
 
     let audioRecorder = AudioRecorder()
     let socketClient = SocketClient()
-    private let credendials: CredentialProvider
+    private let credentials: CredentialProvider
 
     private (set) var status: Status {
         didSet {
@@ -53,19 +58,12 @@ class SpeechRecognitionClient {
         return audioRecorder.recording
     }
 
-    init?() {
+    init(credentials: CredentialProvider) {
 
+        self.credentials = credentials
         status = .idle
-
-        if let credentialProvider = CredentialProvider() {
-            self.credendials = credentialProvider
-        } else {
-            return nil
-        }
-
         audioRecorder.delegate = self
         socketClient.delegate = self
-
     }
 
     static func valueForInfoDictionaryKey(_ key: String) -> String? {
@@ -88,7 +86,7 @@ class SpeechRecognitionClient {
         guard socketClient.connected else {
 
             status = .connectingToSocket
-            socketClient.connect(streamURLString: credendials.streamURLString, token: token)
+            socketClient.connect(streamURLString: credentials.streamURLString, token: token)
             return
         }
 
@@ -138,10 +136,10 @@ class SpeechRecognitionClient {
     private func authenticate() {
 
         let authenticator = HTTPBasicAuthenticator(
-            tokenURLString: credendials.tokenURLString,
-            username: credendials.username,
-            password: credendials.password,
-            queryParams: ["url": credendials.streamURLString]
+            tokenURLString: credentials.tokenURLString,
+            username: credentials.username,
+            password: credentials.password,
+            queryParams: ["url": credentials.streamURLString]
         )
 
         authenticationTask?.cancel()
@@ -161,6 +159,11 @@ class SpeechRecognitionClient {
                     self.status = .idle
 
                     print("received auth error \(error)")
+
+                    self.delegate?.speechRecognitionClient(
+                        speechRecognitionClient: self,
+                        didFailWithError: error
+                    )
                 }
         })
 
@@ -178,7 +181,6 @@ class SpeechRecognitionClient {
     func receivedFinalResult() {
         status = .idle
     }
-
 }
 
 extension SpeechRecognitionClient: AudioRecorderDelegate {
@@ -200,6 +202,11 @@ extension SpeechRecognitionClient :SocketClientDelegate {
 
         if let code = error?.code, let description = error?.localizedDescription {
             print("disconnected with error: \(code) \(description)")
+
+            delegate?.speechRecognitionClient(
+                speechRecognitionClient: self,
+                didFailWithError: error
+            )
         }
 
         self.serverDisconnected()
@@ -213,6 +220,11 @@ extension SpeechRecognitionClient :SocketClientDelegate {
 
         if let errorMessage = jsonObject["error"] as? String {
             print("received socket error: \(errorMessage)")
+
+            delegate?.speechRecognitionClient(
+                speechRecognitionClient: self,
+                didFailWithError: errorMessage
+            )
         }
 
         if let json = (jsonObject["results"] as? [[String : Any]])?.first {
@@ -227,7 +239,6 @@ extension SpeechRecognitionClient :SocketClientDelegate {
             if result.isFinal {
                 receivedFinalResult()
             }
-
 
             let transcript = result.alternatives.first?.transcript ?? ""
             print("received transcript: \(transcript)")

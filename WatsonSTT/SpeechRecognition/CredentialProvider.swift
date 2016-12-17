@@ -18,21 +18,19 @@ class CredentialProvider {
     init?() {
 
         guard
-        let tokenURLString = CredentialProvider.valueForKey("BLUEMIX_WATSON_STT_TOKEN_URL"),
-        let username = CredentialProvider.valueForKey("BLUEMIX_WATSON_STT_USERNAME"),
-        let password = CredentialProvider.valueForKey("BLUEMIX_WATSON_STT_PASSWORD"),
-        let streamURLString = CredentialProvider.valueForKey("BLUEMIX_WATSON_STT_STREAM_URL")
+        let tokenURLStr = CredentialProvider.infoValueForKey("BLUEMIX_WATSON_STT_TOKEN_URL"),
+        let uname = CredentialProvider.infoValueForKey("BLUEMIX_WATSON_STT_USERNAME"),
+        let passwd = CredentialProvider.infoValueForKey("BLUEMIX_WATSON_STT_PASSWORD"),
+        let streamURLStr = CredentialProvider.infoValueForKey("BLUEMIX_WATSON_STT_STREAM_URL")
         else { return nil }
 
-        self.tokenURLString = tokenURLString
-        self.streamURLString = streamURLString
-        self.password = password
-        self.username = username
-
+        self.tokenURLString = tokenURLStr
+        self.streamURLString = streamURLStr
+        self.password = passwd
+        self.username = uname
     }
 
-    static func valueForKey(_ key: String) -> String? {
+    static func infoValueForKey(_ key: String) -> String? {
         return Bundle.main.infoDictionary?[key] as? String
     }
-
 }

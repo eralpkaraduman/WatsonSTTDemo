@@ -11,7 +11,7 @@ import SVProgressHUD
 
 class SpeechToTextViewController: UIViewController {
 
-    let speechRecognitionClient = SpeechRecognitionClient()
+    var speechRecognitionClient: SpeechRecognitionClient!
 
     @IBOutlet weak var transcriptLabel: UILabel!
     @IBOutlet weak var recordButton: RecordButton!
@@ -25,16 +25,21 @@ class SpeechToTextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        speechRecognitionClient?.delegate = self
-
         recordButton.recordState = .idle
         resultViewModel = nil
+
+        guard let credentials = CredentialProvider() else {
+            fatalError("couldn't load credentials")
+        }
+
+        speechRecognitionClient = SpeechRecognitionClient(credentials: credentials)
+        speechRecognitionClient.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        speechRecognitionClient?.prepare()
+        speechRecognitionClient.prepare()
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -47,9 +52,9 @@ class SpeechToTextViewController: UIViewController {
 
         switch client.status {
         case .ready, .idle:
-            speechRecognitionClient?.start()
+            speechRecognitionClient.start()
         case .recognizing:
-            speechRecognitionClient?.stop()
+            speechRecognitionClient.stop()
         default:
             break
         }
@@ -91,5 +96,12 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
         didReceiveResult result: SpeechRecognitionResult) {
 
         self.resultViewModel = SpeechRecognitionResultViewModel(result: result)
+    }
+
+    func speechRecognitionClient(
+        speechRecognitionClient: SpeechRecognitionClient,
+        didFailWithError error: Any?) {
+
+        SVProgressHUD.showError(withStatus: String(describing: error ?? "Unknown Error"))
     }
 }

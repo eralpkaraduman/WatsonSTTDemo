@@ -10,16 +10,21 @@ import Foundation
 
 protocol SpeechRecognitionClientDelegate: class {
 
-    func speechRecognitionClientBecameReady(
-        speechRecognitionClient: SpeechRecognitionClient
-    )
-
-    func speechRecognitionClientBecameIdle(
-        speechRecognitionClient: SpeechRecognitionClient
+    func speechRecognitionClient (
+        speechRecognitionClient: SpeechRecognitionClient,
+        didSwitchToStatus status: SpeechRecognitionClient.Status
     )
 }
 
 class SpeechRecognitionClient {
+
+    enum Status {
+        case idle
+        case auth
+        case connectingToSocket
+        case ready
+        case recognizing
+    }
 
     private var token: String? = nil
     private var authenticationTask: URLSessionDataTask? = nil
@@ -28,7 +33,14 @@ class SpeechRecognitionClient {
     let socketClient = SocketClient()
     private let credendials: CredentialProvider
 
-    private (set) var started = false
+    private (set) var status: Status {
+        didSet {
+            self.delegate?.speechRecognitionClient(
+                speechRecognitionClient: self,
+                didSwitchToStatus: self.status
+            )
+        }
+    }
 
     weak var delegate: SpeechRecognitionClientDelegate? = nil
 
@@ -38,13 +50,17 @@ class SpeechRecognitionClient {
 
     init?() {
 
+        status = .idle
+
         if let credentialProvider = CredentialProvider() {
             self.credendials = credentialProvider
         } else {
             return nil
         }
+
         audioRecorder.delegate = self
         socketClient.delegate = self
+
     }
 
     static func valueForInfoDictionaryKey(_ key: String) -> String? {
@@ -53,27 +69,25 @@ class SpeechRecognitionClient {
 
     func prepare() {
 
+        status = .idle
+
+        try? audioRecorder.stopRecording()
+
         guard let token = token else {
+
+            status = .auth
             authenticate()
             return
         }
 
         guard socketClient.connected else {
+
+            status = .connectingToSocket
             socketClient.connect(streamURLString: credendials.streamURLString, token: token)
             return
         }
 
-        if !audioRecorder.recording {
-
-            do {
-                try audioRecorder.startRecording()
-            } catch {
-                self.delegate?.speechRecognitionClientBecameIdle(speechRecognitionClient: self)
-                return
-            }
-        }
-
-        self.delegate?.speechRecognitionClientBecameReady(speechRecognitionClient: self)
+        status = .ready
     }
 
     func start() {
@@ -90,7 +104,25 @@ class SpeechRecognitionClient {
             "content-type": contentType
         ])
 
-        started = true
+        do {
+            try audioRecorder.startRecording()
+        } catch {
+            status = .idle
+            return
+        }
+
+        status = .recognizing
+    }
+
+    func stop() {
+
+        try? audioRecorder.stopRecording()
+
+        socketClient.writeJSON([
+            "action": "stop"
+        ])
+
+        status = .idle
     }
 
     private func authenticate() {
@@ -115,7 +147,7 @@ class SpeechRecognitionClient {
 
                 case .Failure:
 
-                    self.delegate?.speechRecognitionClientBecameIdle(speechRecognitionClient: self)
+                    self.status = .idle
 
                 }
         })
@@ -124,7 +156,11 @@ class SpeechRecognitionClient {
     }
 
     func serverStartedListening() {
-        started = true
+
+    }
+
+    func serverDisconnected() {
+        stop()
     }
 
 }
@@ -132,7 +168,7 @@ class SpeechRecognitionClient {
 extension SpeechRecognitionClient: AudioRecorderDelegate {
 
     func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
-        if socketClient.connected && started {
+        if socketClient.connected && status == .recognizing {
             socketClient.writeData(data)
         }
     }
@@ -145,7 +181,7 @@ extension SpeechRecognitionClient :SocketClientDelegate {
     }
 
     func socketClientDidDisconnect(socketClient: SocketClient) {
-
+        self.serverDisconnected()
     }
 
     func socketClient(_ socketClient: SocketClient, didReceiveJsonObject jsonObject: JsonObject) {
@@ -155,5 +191,7 @@ extension SpeechRecognitionClient :SocketClientDelegate {
         if let state = jsonObject["state"] as? String, state == "listening" {
             self.serverStartedListening()
         }
+
+        //TODO: handle socket auth error, set client idle, reset token
     }
 }

@@ -96,12 +96,13 @@ class SpeechRecognitionClient {
 
         let contentType = [
             "audio/l16",
-            "rate=" + String(sampleRate)
+            "rate=" + String(sampleRate),
         ].joined(separator: ";")
 
         socketClient.writeJSON([
             "action": "start",
-            "content-type": contentType
+            "content-type": contentType,
+            "interim_results": true
         ])
 
         do {
@@ -169,6 +170,7 @@ extension SpeechRecognitionClient: AudioRecorderDelegate {
 
     func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
         if socketClient.connected && status == .recognizing {
+            //print("writing \(data.count) bytes of sound to socket")
             socketClient.writeData(data)
         }
     }

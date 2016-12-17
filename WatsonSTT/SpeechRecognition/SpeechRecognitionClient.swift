@@ -102,8 +102,9 @@ class SpeechRecognitionClient {
                         speechRecognitionClient: self,
                         success: false
                     )
-                } 
+                }
         })
+
         authenticationTask?.resume()
     }
 

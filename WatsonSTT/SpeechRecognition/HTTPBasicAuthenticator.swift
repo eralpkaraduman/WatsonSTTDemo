@@ -119,7 +119,7 @@ extension URL {
             self.absoluteString,
             parametersDictionary.queryParameters
         )
-        
+
         return URL(string: URLString)!
     }
 }

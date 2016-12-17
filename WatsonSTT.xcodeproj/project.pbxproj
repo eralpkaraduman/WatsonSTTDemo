@@ -446,6 +446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;
 				INFOPLIST_FILE = WatsonSTT/Info.plist;
@@ -460,6 +461,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53A1ECF01E047E75000EFDE9 /* release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6EEJM5R5MF;
 				INFOPLIST_FILE = WatsonSTT/Info.plist;

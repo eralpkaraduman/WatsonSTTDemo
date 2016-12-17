@@ -12,7 +12,7 @@ typealias JsonObject = [String: Any?]
 
 protocol SocketClientDelegate: class {
     func socketClientDidConnect(socketClient: SocketClient)
-    func socketClientDidDisconnect(socketClient: SocketClient)
+    func socketClientDidDisconnect(socketClient: SocketClient, error: NSError?)
     func socketClient(_ socketClient: SocketClient, didReceiveJsonObject jsonObject: JsonObject)
 }
 
@@ -96,8 +96,7 @@ extension SocketClient: WebSocketDelegate {
     }
 
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
-        stopKeepAliveTimer()
-        delegate?.socketClientDidDisconnect(socketClient: self)
+        delegate?.socketClientDidDisconnect(socketClient: self, error: error)
     }
 
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {

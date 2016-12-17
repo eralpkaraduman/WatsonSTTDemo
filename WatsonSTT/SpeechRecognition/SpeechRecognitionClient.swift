@@ -99,11 +99,13 @@ class SpeechRecognitionClient {
 
         prepare()
 
+        guard socketClient.connected else { return }
+
         let sampleRate = Int(audioRecorder.format.mSampleRate)
 
         let contentType = [
             "audio/l16",
-            "rate=" + String(sampleRate),
+            "rate=" + String(sampleRate)
         ].joined(separator: ";")
 
         socketClient.writeJSON([
@@ -153,10 +155,12 @@ class SpeechRecognitionClient {
                     self.token = token
                     self.prepare()
 
-                case .Failure:
+                case .Failure(let error):
 
+                    self.token = nil
                     self.status = .idle
 
+                    print("received auth error \(error)")
                 }
         })
 
@@ -171,13 +175,16 @@ class SpeechRecognitionClient {
         stop()
     }
 
+    func receivedFinalResult() {
+        status = .idle
+    }
+
 }
 
 extension SpeechRecognitionClient: AudioRecorderDelegate {
 
     func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
         if socketClient.connected && status == .recognizing {
-            //print("writing \(data.count) bytes of sound to socket")
             socketClient.writeData(data)
         }
     }
@@ -189,16 +196,23 @@ extension SpeechRecognitionClient :SocketClientDelegate {
         self.prepare()
     }
 
-    func socketClientDidDisconnect(socketClient: SocketClient) {
+    func socketClientDidDisconnect(socketClient: SocketClient, error: NSError?) {
+
+        if let code = error?.code, let description = error?.localizedDescription {
+            print("disconnected with error: \(code) \(description)")
+        }
+
         self.serverDisconnected()
     }
 
     func socketClient(_ socketClient: SocketClient, didReceiveJsonObject jsonObject: JsonObject) {
 
-        //print(jsonObject)
-
         if let state = jsonObject["state"] as? String, state == "listening" {
             self.serverStartedListening()
+        }
+
+        if let errorMessage = jsonObject["error"] as? String {
+            print("received socket error: \(errorMessage)")
         }
 
         if let json = (jsonObject["results"] as? [[String : Any]])?.first {
@@ -209,8 +223,10 @@ extension SpeechRecognitionClient :SocketClientDelegate {
                 speechRecognitionClient: self,
                 didReceiveResult: result
             )
-        }
 
-        //TODO: handle socket auth error, set client idle, reset token
+            if result.isFinal {
+                receivedFinalResult()
+            }
+        }
     }
 }

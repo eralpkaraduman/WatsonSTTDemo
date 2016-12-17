@@ -42,7 +42,6 @@ class AudioRecorder: NSObject {
             mBitsPerChannel: 16,
             mReserved: 0
         )
-
     }
 
     internal var audioInputCallback: AudioQueueInputCallback = {
@@ -99,7 +98,6 @@ class AudioRecorder: NSObject {
                 AudioQueueEnqueueBuffer(queue, buffer, 0, nil)
             }
         }
-
     }
 
     func startRecording() throws {

@@ -101,10 +101,10 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
             print("idle")
             ButtonState.idle.configure(button: recordButton)
         case .auth:
-            print("auth")
+            print("authenticating...")
             ButtonState.preparing.configure(button: recordButton)
         case .connectingToSocket:
-            print("socket")
+            print("connecting to socket...")
             ButtonState.preparing.configure(button: recordButton)
         case .ready:
             print("ready")

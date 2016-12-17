@@ -12,7 +12,7 @@ class HTTPBasicAuthenticator {
 
     enum Result {
         case Success(token: String)
-        case Failure
+        case Failure(error: Any?)
     }
 
     private let urlSession: URLSession
@@ -52,27 +52,34 @@ class HTTPBasicAuthenticator {
             DispatchQueue.main.async {
 
                 guard let response = response as? HTTPURLResponse else {
-                    completionHandler(Result.Failure)
+                    completionHandler(Result.Failure(error: nil))
                     return
                 }
 
                 guard error == nil else {
-                    completionHandler(Result.Failure)
+                    completionHandler(Result.Failure(error: nil))
                     return
                 }
 
                 guard let data = data else {
-                    completionHandler(Result.Failure)
-                    return
-                }
-
-                guard response.statusCode == 200 else {
-                    completionHandler(Result.Failure)
+                    completionHandler(Result.Failure(error: nil))
                     return
                 }
 
                 guard let stringData = String(data: data, encoding: .utf8) else {
-                    completionHandler(Result.Failure)
+                    completionHandler(Result.Failure(error: nil))
+                    return
+                }
+
+                guard response.statusCode == 200 else {
+
+                    var errorJson: Any? = nil
+
+                    if let json = try? JSONSerialization.jsonObject(with: data) {
+                        errorJson = json
+                    }
+
+                    completionHandler(Result.Failure(error: errorJson))
                     return
                 }
 

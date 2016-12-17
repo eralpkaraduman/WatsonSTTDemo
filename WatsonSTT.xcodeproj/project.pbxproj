@@ -22,6 +22,8 @@
 		53A1ED011E04A746000EFDE9 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ED001E04A746000EFDE9 /* AudioRecorder.swift */; };
 		53A1ED031E04A7B5000EFDE9 /* SpeechRecognitionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ED021E04A7B5000EFDE9 /* SpeechRecognitionClient.swift */; };
 		53A1ED051E04B523000EFDE9 /* HTTPBasicAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ED041E04B523000EFDE9 /* HTTPBasicAuthenticator.swift */; };
+		53A1ED071E04C763000EFDE9 /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ED061E04C763000EFDE9 /* SocketClient.swift */; };
+		53A1ED091E04CB9F000EFDE9 /* CredentialProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ED081E04CB9F000EFDE9 /* CredentialProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		53A1ED001E04A746000EFDE9 /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		53A1ED021E04A7B5000EFDE9 /* SpeechRecognitionClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionClient.swift; sourceTree = "<group>"; };
 		53A1ED041E04B523000EFDE9 /* HTTPBasicAuthenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPBasicAuthenticator.swift; sourceTree = "<group>"; };
+		53A1ED061E04C763000EFDE9 /* SocketClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
+		53A1ED081E04CB9F000EFDE9 /* CredentialProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialProvider.swift; sourceTree = "<group>"; };
 		F9128DCB5F507D33BAA55296 /* Pods_WatsonSTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatsonSTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -155,8 +159,10 @@
 		53A1ECFF1E04A72F000EFDE9 /* SpeechRecognition */ = {
 			isa = PBXGroup;
 			children = (
-				53A1ED001E04A746000EFDE9 /* AudioRecorder.swift */,
 				53A1ED021E04A7B5000EFDE9 /* SpeechRecognitionClient.swift */,
+				53A1ED061E04C763000EFDE9 /* SocketClient.swift */,
+				53A1ED081E04CB9F000EFDE9 /* CredentialProvider.swift */,
+				53A1ED001E04A746000EFDE9 /* AudioRecorder.swift */,
 				53A1ED041E04B523000EFDE9 /* HTTPBasicAuthenticator.swift */,
 			);
 			path = SpeechRecognition;
@@ -313,6 +319,8 @@
 				53A1ED051E04B523000EFDE9 /* HTTPBasicAuthenticator.swift in Sources */,
 				53A1ECF81E0487E7000EFDE9 /* PermissionRequestCoordinator.swift in Sources */,
 				53A1ECFE1E049C9C000EFDE9 /* SpeechToTextCoordinator.swift in Sources */,
+				53A1ED091E04CB9F000EFDE9 /* CredentialProvider.swift in Sources */,
+				53A1ED071E04C763000EFDE9 /* SocketClient.swift in Sources */,
 				53A1ED031E04A7B5000EFDE9 /* SpeechRecognitionClient.swift in Sources */,
 				530249071E041C9600D29D66 /* AppDelegate.swift in Sources */,
 				53A1ECF41E04842A000EFDE9 /* Coordinator.swift in Sources */,

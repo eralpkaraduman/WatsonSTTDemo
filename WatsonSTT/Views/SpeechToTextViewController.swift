@@ -17,36 +17,19 @@ class SpeechToTextViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        speechRecognitionClient.delegate = self
-        speechRecognitionClient.start()
+        speechRecognitionClient?.delegate = self
+        speechRecognitionClient?.prepare()
 
     }
 }
 
 extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
 
-    func speechRecognitionClientBeganAuthenticating(
-        speechRecognitionClient: SpeechRecognitionClient) {
-
+    func speechRecognitionClientBecameReady(speechRecognitionClient: SpeechRecognitionClient) {
+        speechRecognitionClient.start()
     }
 
-    func speechRecognitionClientCompleteAuthenticating(
-        speechRecognitionClient: SpeechRecognitionClient,
-        success: Bool) {
-
-        if success {
-            speechRecognitionClient.start()
-        }
-        
-    }
-
-    func speechRecognitionClientStartedStreaming(
-        speechRecognitionClient: SpeechRecognitionClient) {
-
-    }
-
-    func speechRecognitionClientEndedStreaming(
-        speechRecognitionClient: SpeechRecognitionClient) {
+    func speechRecognitionClientBecameIdle(speechRecognitionClient: SpeechRecognitionClient) {
 
     }
 

@@ -32,7 +32,7 @@ class AudioRecorder: NSObject {
         formatFlags |= kLinearPCMFormatFlagIsSignedInteger
         formatFlags |= kLinearPCMFormatFlagIsPacked
         format = AudioStreamBasicDescription(
-            mSampleRate: 16000.0,
+            mSampleRate: 22050.0,
             mFormatID: kAudioFormatLinearPCM,
             mFormatFlags: formatFlags,
             mBytesPerPacket: UInt32(1*MemoryLayout<Int16>.stride),

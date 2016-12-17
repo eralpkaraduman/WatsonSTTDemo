@@ -10,19 +10,11 @@ import Foundation
 
 protocol SpeechRecognitionClientDelegate: class {
 
-    func speechRecognitionClientBeganAuthenticating(
+    func speechRecognitionClientBecameReady(
         speechRecognitionClient: SpeechRecognitionClient
     )
 
-    func speechRecognitionClientCompleteAuthenticating(
-        speechRecognitionClient: SpeechRecognitionClient, success: Bool
-    )
-
-    func speechRecognitionClientStartedStreaming(
-        speechRecognitionClient: SpeechRecognitionClient
-    )
-
-    func speechRecognitionClientEndedStreaming(
+    func speechRecognitionClientBecameIdle(
         speechRecognitionClient: SpeechRecognitionClient
     )
 }
@@ -30,55 +22,84 @@ protocol SpeechRecognitionClientDelegate: class {
 class SpeechRecognitionClient {
 
     private var token: String? = nil
-    private let audioRecorder = AudioRecorder()
     private var authenticationTask: URLSessionDataTask? = nil
 
-    let urlSession: URLSession
+    let audioRecorder = AudioRecorder()
+    let socketClient = SocketClient()
+    private let credendials: CredentialProvider
+
+    private (set) var started = false
 
     weak var delegate: SpeechRecognitionClientDelegate? = nil
-
-    var authenticated: Bool {
-        return !(token?.isEmpty ?? true)
-    }
 
     var recording: Bool {
         return audioRecorder.recording
     }
 
-    init() {
-        urlSession = URLSession(configuration: URLSessionConfiguration.default)
+    init?() {
+
+        if let credentialProvider = CredentialProvider() {
+            self.credendials = credentialProvider
+        } else {
+            return nil
+        }
         audioRecorder.delegate = self
+        socketClient.delegate = self
     }
 
-    func valueForInfoDictionaryKey(_ key: String) -> String? {
+    static func valueForInfoDictionaryKey(_ key: String) -> String? {
         return Bundle.main.infoDictionary?[key] as? String
     }
 
-    func start() {
+    func prepare() {
 
-        guard authenticated else {
+        guard let token = token else {
             authenticate()
             return
         }
 
-        // start recording
+        guard socketClient.connected else {
+            socketClient.connect(streamURLString: credendials.streamURLString, token: token)
+            return
+        }
+
+        if !audioRecorder.recording {
+
+            do {
+                try audioRecorder.startRecording()
+            } catch {
+                self.delegate?.speechRecognitionClientBecameIdle(speechRecognitionClient: self)
+                return
+            }
+        }
+
+        self.delegate?.speechRecognitionClientBecameReady(speechRecognitionClient: self)
+    }
+
+    func start() {
+
+        let sampleRate = Int(audioRecorder.format.mSampleRate)
+
+        let contentType = [
+            "audio/l16",
+            "rate=" + String(sampleRate)
+        ].joined(separator: ";")
+
+        socketClient.writeJSON([
+            "action": "start",
+            "content-type": contentType
+        ])
+
+        started = true
     }
 
     private func authenticate() {
-        delegate?.speechRecognitionClientBeganAuthenticating(speechRecognitionClient: self)
-
-        guard
-        let tokenURLString = valueForInfoDictionaryKey("BLUEMIX_WATSON_STT_TOKEN_URL"),
-        let username = valueForInfoDictionaryKey("BLUEMIX_WATSON_STT_USERNAME"),
-        let password = valueForInfoDictionaryKey("BLUEMIX_WATSON_STT_PASSWORD"),
-        let streamURLString = valueForInfoDictionaryKey("BLUEMIX_WATSON_STT_STREAM_URL")
-        else { return }
 
         let authenticator = HTTPBasicAuthenticator(
-            tokenURLString: tokenURLString,
-            username: username,
-            password: password,
-            queryParams: ["url": streamURLString]
+            tokenURLString: credendials.tokenURLString,
+            username: credendials.username,
+            password: credendials.password,
+            queryParams: ["url": credendials.streamURLString]
         )
 
         authenticationTask?.cancel()
@@ -90,22 +111,20 @@ class SpeechRecognitionClient {
                 case .Success(let token):
 
                     self.token = token
-
-                    self.delegate?.speechRecognitionClientCompleteAuthenticating(
-                        speechRecognitionClient: self,
-                        success: true
-                    )
+                    self.prepare()
 
                 case .Failure:
 
-                    self.delegate?.speechRecognitionClientCompleteAuthenticating(
-                        speechRecognitionClient: self,
-                        success: false
-                    )
+                    self.delegate?.speechRecognitionClientBecameIdle(speechRecognitionClient: self)
+
                 }
         })
 
         authenticationTask?.resume()
+    }
+
+    func serverStartedListening() {
+        started = true
     }
 
 }
@@ -113,6 +132,28 @@ class SpeechRecognitionClient {
 extension SpeechRecognitionClient: AudioRecorderDelegate {
 
     func audioRecorder(_ recorder: AudioRecorder, didRecordData data: Data) {
-        print(data.count)
+        if socketClient.connected && started {
+            socketClient.writeData(data)
+        }
+    }
+}
+
+extension SpeechRecognitionClient :SocketClientDelegate {
+
+    func socketClientDidConnect(socketClient: SocketClient) {
+        self.prepare()
+    }
+
+    func socketClientDidDisconnect(socketClient: SocketClient) {
+
+    }
+
+    func socketClient(_ socketClient: SocketClient, didReceiveJsonObject jsonObject: JsonObject) {
+
+        print(jsonObject)
+
+        if let state = jsonObject["state"] as? String, state == "listening" {
+            self.serverStartedListening()
+        }
     }
 }

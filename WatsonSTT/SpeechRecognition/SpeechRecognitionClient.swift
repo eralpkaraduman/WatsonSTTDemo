@@ -97,6 +97,8 @@ class SpeechRecognitionClient {
 
     func start() {
 
+        prepare()
+
         let sampleRate = Int(audioRecorder.format.mSampleRate)
 
         let contentType = [

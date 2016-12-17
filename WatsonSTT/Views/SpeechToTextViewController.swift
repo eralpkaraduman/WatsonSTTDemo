@@ -11,29 +11,41 @@ import UIKit
 class SpeechToTextViewController: UIViewController {
 
     let speechRecognitionClient = SpeechRecognitionClient()
-    let recordButton = UIButton(type: .system)
+    let recordButton = UIButton(type: .roundedRect)
 
     enum ButtonState {
         case recording
         case idle
+        case preparing
 
         var title: String {
             switch self {
             case .idle: return "Start Recording"
             case .recording: return "Stop Recording"
+            case .preparing: return "preparing..."
             }
         }
 
         var color: UIColor {
             switch self {
-            case .idle: return .gray
+            case .idle: return .black
             case .recording: return .red
+            case .preparing: return .gray
+            }
+        }
+
+        var enabled: Bool {
+            switch self {
+            case .idle: return true
+            case .recording: return true
+            case .preparing: return false
             }
         }
 
         func configure(button: UIButton) {
             button.setTitle(title, for: .normal)
             button.setTitleColor(color, for: .normal)
+            button.isEnabled = enabled
         }
     }
 
@@ -68,7 +80,7 @@ class SpeechToTextViewController: UIViewController {
         guard let client = speechRecognitionClient else { return }
 
         switch client.status {
-        case .ready:
+        case .ready, .idle:
             speechRecognitionClient?.start()
         case .recognizing:
             speechRecognitionClient?.stop()
@@ -90,10 +102,10 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
             ButtonState.idle.configure(button: recordButton)
         case .auth:
             print("auth")
-            ButtonState.idle.configure(button: recordButton)
+            ButtonState.preparing.configure(button: recordButton)
         case .connectingToSocket:
             print("socket")
-            ButtonState.idle.configure(button: recordButton)
+            ButtonState.preparing.configure(button: recordButton)
         case .ready:
             print("ready")
             ButtonState.idle.configure(button: recordButton)

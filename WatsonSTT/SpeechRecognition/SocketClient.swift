@@ -20,20 +20,21 @@ class SocketClient {
 
     private var socket: WebSocket? = nil
 
+    private let keepAliveInterval: TimeInterval = 5
+    private var keepAliveTimer: Timer? = nil
+
     weak var delegate: SocketClientDelegate? = nil
 
     var connected: Bool {
         return socket?.isConnected ?? false
     }
 
-    init() {
-
-    }
-
     func connect(streamURLString: String, token: String) {
 
         socket?.delegate = nil
         socket?.disconnect()
+
+        // change scheme from https to wss when connecting to socket
 
         var components = URLComponents(string: streamURLString)
         components?.scheme = "wss"
@@ -60,21 +61,47 @@ class SocketClient {
 
     func writeData(_ data: Data) {
         socket?.write(data: data)
+    }
 
+    func startKeepAliveTimer() {
+
+        stopKeepAliveTimer()
+
+        Timer.scheduledTimer(withTimeInterval: keepAliveInterval, repeats: true) {
+            [weak self] timer in
+
+            print("sent keep alive action: no-op")
+
+            self?.writeJSON([
+                "action": "no-op"
+            ])
+        }
+    }
+
+    func stopKeepAliveTimer() {
+        keepAliveTimer?.invalidate()
+        keepAliveTimer = nil
+    }
+
+    deinit {
+        stopKeepAliveTimer()
     }
 }
 
 extension SocketClient: WebSocketDelegate {
 
     func websocketDidConnect(socket: WebSocket) {
+        startKeepAliveTimer()
         delegate?.socketClientDidConnect(socketClient: self)
     }
 
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+        stopKeepAliveTimer()
         delegate?.socketClientDidDisconnect(socketClient: self)
     }
 
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+
         guard let data = text.data(using: .utf8) else { return }
         guard let jsonObject = try? JSONSerialization.jsonObject(with: data)
         as? JsonObject else { return }

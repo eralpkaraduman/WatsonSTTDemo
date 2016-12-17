@@ -14,6 +14,11 @@ protocol SpeechRecognitionClientDelegate: class {
         speechRecognitionClient: SpeechRecognitionClient,
         didSwitchToStatus status: SpeechRecognitionClient.Status
     )
+
+    func speechRecognitionClient (
+        speechRecognitionClient: SpeechRecognitionClient,
+        didReceiveResult result: SpeechRecognitionResult
+    )
 }
 
 class SpeechRecognitionClient {
@@ -188,10 +193,20 @@ extension SpeechRecognitionClient :SocketClientDelegate {
 
     func socketClient(_ socketClient: SocketClient, didReceiveJsonObject jsonObject: JsonObject) {
 
-        print(jsonObject)
+        //print(jsonObject)
 
         if let state = jsonObject["state"] as? String, state == "listening" {
             self.serverStartedListening()
+        }
+
+        if let json = (jsonObject["results"] as? [[String : Any]])?.first {
+
+            let result = SpeechRecognitionResult(json: json)
+
+            delegate?.speechRecognitionClient(
+                speechRecognitionClient: self,
+                didReceiveResult: result
+            )
         }
 
         //TODO: handle socket auth error, set client idle, reset token

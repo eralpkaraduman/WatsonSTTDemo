@@ -103,4 +103,13 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
         }
     }
 
+    func speechRecognitionClient(
+        speechRecognitionClient: SpeechRecognitionClient,
+        didReceiveResult result: SpeechRecognitionResult) {
+
+        let transcript = result.alternatives.first?.transcript ?? ""
+        print("received transcript: \(transcript)")
+
+    }
+
 }

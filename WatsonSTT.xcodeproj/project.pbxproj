@@ -11,6 +11,8 @@
 		530249071E041C9600D29D66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530249061E041C9600D29D66 /* AppDelegate.swift */; };
 		5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5302490D1E041C9600D29D66 /* Assets.xcassets */; };
 		530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */; };
+		53256F341E05848800E0D1B5 /* SpeechRecognitionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53256F331E05848800E0D1B5 /* SpeechRecognitionResult.swift */; };
+		53256F361E05853C00E0D1B5 /* SpeechRecognitionAlternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53256F351E05853C00E0D1B5 /* SpeechRecognitionAlternative.swift */; };
 		53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109821E0439E6009BA4AD /* AVFoundation.framework */; };
 		53A109851E046488009BA4AD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109841E046488009BA4AD /* AudioToolbox.framework */; };
 		53A1ECF41E04842A000EFDE9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ECF31E04842A000EFDE9 /* Coordinator.swift */; };
@@ -35,6 +37,8 @@
 		530249101E041C9600D29D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		530249121E041C9600D29D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		530249181E041EA000D29D66 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
+		53256F331E05848800E0D1B5 /* SpeechRecognitionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionResult.swift; sourceTree = "<group>"; };
+		53256F351E05853C00E0D1B5 /* SpeechRecognitionAlternative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionAlternative.swift; sourceTree = "<group>"; };
 		53A109821E0439E6009BA4AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		53A109841E046488009BA4AD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		53A109881E047AC4009BA4AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				53256F331E05848800E0D1B5 /* SpeechRecognitionResult.swift */,
+				53256F351E05853C00E0D1B5 /* SpeechRecognitionAlternative.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53256F341E05848800E0D1B5 /* SpeechRecognitionResult.swift in Sources */,
 				53A1ECF61E04846E000EFDE9 /* AppCoordinator.swift in Sources */,
 				53A1ECFA1E048CF4000EFDE9 /* PermissionRequestViewController.swift in Sources */,
 				53A1ED051E04B523000EFDE9 /* HTTPBasicAuthenticator.swift in Sources */,
@@ -324,6 +331,7 @@
 				53A1ED031E04A7B5000EFDE9 /* SpeechRecognitionClient.swift in Sources */,
 				530249071E041C9600D29D66 /* AppDelegate.swift in Sources */,
 				53A1ECF41E04842A000EFDE9 /* Coordinator.swift in Sources */,
+				53256F361E05853C00E0D1B5 /* SpeechRecognitionAlternative.swift in Sources */,
 				53A1ED011E04A746000EFDE9 /* AudioRecorder.swift in Sources */,
 				53A1ECFC1E049C36000EFDE9 /* SpeechToTextViewController.swift in Sources */,
 			);

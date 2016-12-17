@@ -10,71 +10,24 @@ import UIKit
 
 class SpeechToTextViewController: UIViewController {
 
-    @IBOutlet weak var transcriptLabel: UILabel!
+    let speechRecognitionClient = SpeechRecognitionClient()
 
-    var resultViewModel: SpeechRecognitionResultViewModel? = nil {
+    @IBOutlet weak var transcriptLabel: UILabel!
+    @IBOutlet weak var recordButton: RecordButton!
+
+    var resultViewModel: SpeechRecognitionResultViewModel? {
         didSet {
             transcriptLabel.text = resultViewModel?.transcriptText ?? ""
-        }
-    }
-
-    let speechRecognitionClient = SpeechRecognitionClient()
-    let recordButton = UIButton(type: .roundedRect)
-
-    enum ButtonState {
-        case recording
-        case idle
-        case preparing
-
-        var title: String {
-            switch self {
-            case .idle: return "Start Recording"
-            case .recording: return "Stop Recording"
-            case .preparing: return "preparing..."
-            }
-        }
-
-        var color: UIColor {
-            switch self {
-            case .idle: return .black
-            case .recording: return .red
-            case .preparing: return .gray
-            }
-        }
-
-        var enabled: Bool {
-            switch self {
-            case .idle: return true
-            case .recording: return true
-            case .preparing: return false
-            }
-        }
-
-        func configure(button: UIButton) {
-            button.setTitle(title, for: .normal)
-            button.setTitleColor(color, for: .normal)
-            button.isEnabled = enabled
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-
-        ButtonState.idle.configure(button: recordButton)
-
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(recordButton)
-        recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        recordButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        recordButton.addTarget(
-            self,
-            action: #selector(recordButtonDidTriggerTap),
-            for: .touchUpInside
-        )
-
         speechRecognitionClient?.delegate = self
+
+        recordButton.recordState = .idle
+        resultViewModel = nil
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +40,7 @@ class SpeechToTextViewController: UIViewController {
         return true
     }
 
-    func recordButtonDidTriggerTap() {
+    @IBAction func recordButtonDidTriggerTap() {
 
         guard let client = speechRecognitionClient else { return }
 
@@ -110,20 +63,25 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
 
         switch status {
         case .idle:
-            print("idle")
-            ButtonState.idle.configure(button: recordButton)
+
+            recordButton.recordState = .idle
         case .auth:
+
             print("authenticating...")
-            ButtonState.preparing.configure(button: recordButton)
+            //ButtonState.preparing.configure(button: recordButton)
+
         case .connectingToSocket:
+
             print("connecting to socket...")
-            ButtonState.preparing.configure(button: recordButton)
+            //ButtonState.preparing.configure(button: recordButton)
+
         case .ready:
-            print("ready")
-            ButtonState.idle.configure(button: recordButton)
+
+            recordButton.recordState = .idle
+
         case .recognizing:
-            print("recognizing")
-            ButtonState.recording.configure(button: recordButton)
+
+            recordButton.recordState = .recording
         }
     }
 

@@ -26,8 +26,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="477"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Transcript text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-iX-Jfw">
-                                        <rect key="frame" x="16" y="16" width="288" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <rect key="frame" x="16" y="16" width="288" height="26.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -40,9 +40,12 @@
                                     <constraint firstItem="bYg-iX-Jfw" firstAttribute="top" secondItem="fVD-0m-kMu" secondAttribute="top" constant="16" id="gnc-Zt-nQY"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icz-kU-LFv">
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icz-kU-LFv" userLabel="RecordButton" customClass="RecordButton" customModule="WatsonSTT" customModuleProvider="target">
                                 <rect key="frame" x="131" y="493" width="58" height="59"/>
                                 <state key="normal" image="record-button-gray"/>
+                                <connections>
+                                    <action selector="recordButtonDidTriggerTap" destination="cxC-Fg-ImK" eventType="touchUpInside" id="Whf-KL-XGx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,6 +61,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="recordButton" destination="Icz-kU-LFv" id="mAk-Iy-Ra5"/>
                         <outlet property="transcriptLabel" destination="bYg-iX-Jfw" id="yx5-hB-3jR"/>
                     </connections>
                 </viewController>

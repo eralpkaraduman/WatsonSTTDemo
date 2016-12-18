@@ -7,10 +7,8 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 @UIApplicationMain
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -21,11 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
         -> Bool {
 
-        BITHockeyManager.shared().configure(
-            withIdentifier: "0d78f9aa23dd4c8cb7acb2655d7253e0"
-        )
-        BITHockeyManager.shared().start()
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
+        configureHockeyapp()
 
         window = UIWindow()
         guard let window = window else { fatalError() }
@@ -34,9 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator.start()
         window.makeKeyAndVisible()
 
-        SVProgressHUD.setDefaultStyle(.dark)
-        SFX.preloadAll()
-
         return true
+    }
+
+    func configureHockeyapp() {
+
+        BITHockeyManager.shared().configure(
+            withIdentifier: "0d78f9aa23dd4c8cb7acb2655d7253e0"
+        )
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
     }
 }

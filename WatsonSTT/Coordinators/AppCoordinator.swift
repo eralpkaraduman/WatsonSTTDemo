@@ -28,6 +28,8 @@ class AppCoordinator: Coordinator {
 
         SVProgressHUD.setDefaultStyle(.dark)
 
+        SFX.preloadAll()
+
         if case .authorized = PermissionScope().statusMicrophone() {
             showRecorderScreen()
         } else {

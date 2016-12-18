@@ -65,7 +65,8 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
 
     func speechRecognitionClient(
         speechRecognitionClient: SpeechRecognitionClient,
-        didSwitchToStatus status: SpeechRecognitionClient.Status) {
+        didSwitchToStatus status: SpeechRecognitionClient.Status,
+        fromStatus previousStatus: SpeechRecognitionClient.Status) {
 
         switch status {
         case .idle:
@@ -88,6 +89,14 @@ extension SpeechToTextViewController: SpeechRecognitionClientDelegate {
         case .recognizing:
 
             recordButton.recordState = .recording
+        }
+
+        if previousStatus != .recognizing && status == .recognizing {
+            SFX.up.play()
+        }
+
+        if previousStatus == .recognizing && status != .recognizing {
+            SFX.down.play()
         }
     }
 

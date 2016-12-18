@@ -12,7 +12,8 @@ protocol SpeechRecognitionClientDelegate: class {
 
     func speechRecognitionClient (
         speechRecognitionClient: SpeechRecognitionClient,
-        didSwitchToStatus status: SpeechRecognitionClient.Status
+        didSwitchToStatus status: SpeechRecognitionClient.Status,
+        fromStatus previousStatus: SpeechRecognitionClient.Status
     )
 
     func speechRecognitionClient (
@@ -43,11 +44,19 @@ class SpeechRecognitionClient {
     let socketClient = SocketClient()
     private let credentials: CredentialProvider
 
+    private var previousStatus: Status = .idle
+
     private (set) var status: Status {
+
+        willSet {
+            self.previousStatus = self.status
+        }
+
         didSet {
             self.delegate?.speechRecognitionClient(
                 speechRecognitionClient: self,
-                didSwitchToStatus: self.status
+                didSwitchToStatus: self.status,
+                fromStatus: self.previousStatus
             )
         }
     }

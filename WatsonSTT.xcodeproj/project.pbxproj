@@ -16,6 +16,9 @@
 		53256F411E05D75700E0D1B5 /* SpeechToText.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53256F401E05D75700E0D1B5 /* SpeechToText.storyboard */; };
 		535C4ED11E05E7E400B43E76 /* SpeechRecognitionResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535C4ED01E05E7E400B43E76 /* SpeechRecognitionResultViewModel.swift */; };
 		535C4ED31E05EE7600B43E76 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535C4ED21E05EE7600B43E76 /* RecordButton.swift */; };
+		535C4ED71E06057000B43E76 /* SFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535C4ED61E06057000B43E76 /* SFX.swift */; };
+		535C4EDB1E0605AD00B43E76 /* down.wav in Resources */ = {isa = PBXBuildFile; fileRef = 535C4ED91E0605AD00B43E76 /* down.wav */; };
+		535C4EDC1E0605AD00B43E76 /* up.wav in Resources */ = {isa = PBXBuildFile; fileRef = 535C4EDA1E0605AD00B43E76 /* up.wav */; };
 		53A109831E0439E6009BA4AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109821E0439E6009BA4AD /* AVFoundation.framework */; };
 		53A109851E046488009BA4AD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A109841E046488009BA4AD /* AudioToolbox.framework */; };
 		53A1ECF41E04842A000EFDE9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A1ECF31E04842A000EFDE9 /* Coordinator.swift */; };
@@ -46,6 +49,9 @@
 		535C4ED01E05E7E400B43E76 /* SpeechRecognitionResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionResultViewModel.swift; sourceTree = "<group>"; };
 		535C4ED21E05EE7600B43E76 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		535C4ED41E05F7D300B43E76 /* WatsonSTT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WatsonSTT-Bridging-Header.h"; sourceTree = "<group>"; };
+		535C4ED61E06057000B43E76 /* SFX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFX.swift; sourceTree = "<group>"; };
+		535C4ED91E0605AD00B43E76 /* down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = down.wav; sourceTree = "<group>"; };
+		535C4EDA1E0605AD00B43E76 /* up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = up.wav; sourceTree = "<group>"; };
 		53A109821E0439E6009BA4AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		53A109841E046488009BA4AD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		53A1ECEF1E047E50000EFDE9 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
@@ -100,6 +106,7 @@
 		530249051E041C9600D29D66 /* WatsonSTT */ = {
 			isa = PBXGroup;
 			children = (
+				535C4ED81E0605AD00B43E76 /* Sounds */,
 				53256F3F1E05D70E00E0D1B5 /* StoryBoards */,
 				53A1ECF11E047F58000EFDE9 /* Config */,
 				53A109871E047AC4009BA4AD /* Coordinators */,
@@ -111,6 +118,7 @@
 				5302490D1E041C9600D29D66 /* Assets.xcassets */,
 				5302490F1E041C9600D29D66 /* LaunchScreen.storyboard */,
 				530249121E041C9600D29D66 /* Info.plist */,
+				535C4ED61E06057000B43E76 /* SFX.swift */,
 			);
 			path = WatsonSTT;
 			sourceTree = "<group>";
@@ -121,6 +129,15 @@
 				53256F401E05D75700E0D1B5 /* SpeechToText.storyboard */,
 			);
 			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		535C4ED81E0605AD00B43E76 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				535C4ED91E0605AD00B43E76 /* down.wav */,
+				535C4EDA1E0605AD00B43E76 /* up.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		53A109811E0439E6009BA4AD /* Frameworks */ = {
@@ -267,6 +284,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				535C4EDC1E0605AD00B43E76 /* up.wav in Resources */,
+				535C4EDB1E0605AD00B43E76 /* down.wav in Resources */,
 				530249111E041C9600D29D66 /* LaunchScreen.storyboard in Resources */,
 				5302490E1E041C9600D29D66 /* Assets.xcassets in Resources */,
 				53256F411E05D75700E0D1B5 /* SpeechToText.storyboard in Resources */,
@@ -351,6 +370,7 @@
 				53A1ED091E04CB9F000EFDE9 /* CredentialProvider.swift in Sources */,
 				535C4ED31E05EE7600B43E76 /* RecordButton.swift in Sources */,
 				53A1ED071E04C763000EFDE9 /* SocketClient.swift in Sources */,
+				535C4ED71E06057000B43E76 /* SFX.swift in Sources */,
 				53A1ED031E04A7B5000EFDE9 /* SpeechRecognitionClient.swift in Sources */,
 				530249071E041C9600D29D66 /* AppDelegate.swift in Sources */,
 				53A1ECF41E04842A000EFDE9 /* Coordinator.swift in Sources */,

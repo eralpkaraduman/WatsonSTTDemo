@@ -9,4 +9,5 @@ target 'WatsonSTT' do
   pod 'PermissionScope', '~> 1.1'
   pod 'Starscream', '~> 2.0'
   pod 'SVProgressHUD', '~> 2.1'
+  pod 'HockeySDK', '~> 4.1.3'
 end

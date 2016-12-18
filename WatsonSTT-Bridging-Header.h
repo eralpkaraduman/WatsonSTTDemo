@@ -3,3 +3,4 @@
 //
 
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <HockeySDK/HockeySDK.h>

@@ -241,6 +241,7 @@
 				22E51230943E1BD7FE788C16 /* [CP] Embed Pods Frameworks */,
 				3427925680C32D64EBF711D2 /* [CP] Copy Pods Resources */,
 				53A1ECF21E04812E000EFDE9 /* ShellScript */,
+				5388EBE41E061595004C8A55 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -347,6 +348,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatsonSTT/Pods-WatsonSTT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5388EBE41E061595004C8A55 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
 		};
 		53A1ECF21E04812E000EFDE9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

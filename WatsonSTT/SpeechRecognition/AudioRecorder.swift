@@ -102,6 +102,13 @@ class AudioRecorder: NSObject {
 
     func startRecording() throws {
 
+        try? session.setCategory(
+            AVAudioSessionCategoryPlayAndRecord,
+            with: AVAudioSessionCategoryOptions.defaultToSpeaker
+        )
+
+        try? session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+
         guard !recording else { return }
         self.prepare()
         self.recording = true

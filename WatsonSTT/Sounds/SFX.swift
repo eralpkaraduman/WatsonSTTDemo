@@ -32,10 +32,6 @@ enum SFX: String {
 
     func createPlayer() -> SFXPlayer {
 
-        let session = AVAudioSession.sharedInstance()
-
-        do { try session.setCategory(AVAudioSessionCategoryPlayAndRecord) } catch { }
-
         guard
         let url = url,
         let player = try? AVAudioPlayer(contentsOf: url)

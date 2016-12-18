@@ -29,6 +29,13 @@ protocol SpeechRecognitionClientDelegate: class {
 
 class SpeechRecognitionClient {
 
+    enum RecognitionModel: String {
+        case english = "en-US_BroadbandModel"
+        case mandarin = "zh-CN_BroadbandModel"
+        case french = "fr-FR_BroadbandModel"
+        case spanish = "es-ES_BroadbandModel"
+    }
+
     enum Status {
         case idle
         case auth
@@ -58,6 +65,18 @@ class SpeechRecognitionClient {
                 didSwitchToStatus: self.status,
                 fromStatus: self.previousStatus
             )
+        }
+    }
+
+    var recognitionModel: RecognitionModel = .english {
+
+        didSet {
+
+            if status == .recognizing {
+                stop()
+            }
+
+            socketClient.disconnect()
         }
     }
 
@@ -95,7 +114,11 @@ class SpeechRecognitionClient {
         guard socketClient.connected else {
 
             status = .connectingToSocket
-            socketClient.connect(streamURLString: credentials.streamURLString, token: token)
+            socketClient.connect(
+                streamURLString: credentials.streamURLString,
+                token: token,
+                model: recognitionModel
+            )
             return
         }
 

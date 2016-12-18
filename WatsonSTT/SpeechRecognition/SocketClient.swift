@@ -29,7 +29,10 @@ class SocketClient {
         return socket?.isConnected ?? false
     }
 
-    func connect(streamURLString: String, token: String) {
+    func connect(
+        streamURLString: String,
+        token: String,
+        model: SpeechRecognitionClient.RecognitionModel) {
 
         socket?.delegate = nil
         socket?.disconnect()
@@ -41,7 +44,7 @@ class SocketClient {
         guard let baseURL  = components?.url else { fatalError() }
 
         let url = baseURL.appendingQueryParameters([
-            "model": "en-US_BroadbandModel"
+            "model": model.rawValue
         ])
 
         socket = WebSocket(url: url)
@@ -63,7 +66,12 @@ class SocketClient {
         socket?.write(data: data)
     }
 
-    func startKeepAliveTimer() {
+    func disconnect() {
+        stopKeepAliveTimer()
+        socket?.disconnect()
+    }
+
+    fileprivate func startKeepAliveTimer() {
 
         stopKeepAliveTimer()
 
@@ -78,7 +86,7 @@ class SocketClient {
         }
     }
 
-    func stopKeepAliveTimer() {
+    fileprivate func stopKeepAliveTimer() {
         keepAliveTimer?.invalidate()
         keepAliveTimer = nil
     }
@@ -97,6 +105,7 @@ extension SocketClient: WebSocketDelegate {
 
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         delegate?.socketClientDidDisconnect(socketClient: self, error: error)
+        stopKeepAliveTimer()
     }
 
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {

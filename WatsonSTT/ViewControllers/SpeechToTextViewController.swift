@@ -34,6 +34,8 @@ class SpeechToTextViewController: UIViewController {
 
         speechRecognitionClient = SpeechRecognitionClient(credentials: credentials)
         speechRecognitionClient.delegate = self
+
+        //speechRecognitionClient.recognitionModel = .mandarin
     }
 
     override func viewDidAppear(_ animated: Bool) {

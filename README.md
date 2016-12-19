@@ -15,7 +15,7 @@ Create a Watson Speech to Text service from Bluemix
 Enter your credentials to: `WatsonSTT/prod.xcconfig`
 
 When it launches, wait for it to authenticate & connect to socket  
-Tap the microphone button ( don't tap and hold )  
+Tap the microphone button (don't tap and hold)  
 Start speaking when you hear the sound effect  
 You should see the text update as you speak
 
@@ -47,5 +47,5 @@ Due to being demo only, there are some issues exist;
   - Tap again to start recognizing
 
 - Doesn't store auth token locally, authenticates again at every launch
-- Recognized english only, this setting is hardcoded
+- Recognizes english only, this setting is hardcoded
 - Doesn't properly handle the offline state

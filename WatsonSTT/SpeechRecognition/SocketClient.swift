@@ -111,12 +111,10 @@ extension SocketClient: WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
 
         guard let data = text.data(using: .utf8) else { return }
-        guard let jsonObject = try? JSONSerialization.jsonObject(with: data)
+        guard let jsonObject = (try? JSONSerialization.jsonObject(with: data))
         as? JsonObject else { return }
 
-        if let jsonObject = jsonObject {
-            delegate?.socketClient(self, didReceiveJsonObject: jsonObject)
-        }
+        delegate?.socketClient(self, didReceiveJsonObject: jsonObject)
     }
 
     func websocketDidReceiveData(socket: WebSocket, data: Data) {

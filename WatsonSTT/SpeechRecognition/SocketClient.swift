@@ -75,7 +75,7 @@ class SocketClient {
 
         stopKeepAliveTimer()
 
-        Timer.scheduledTimer(withTimeInterval: keepAliveInterval, repeats: true) {
+        keepAliveTimer = Timer.scheduledTimer(withTimeInterval: keepAliveInterval, repeats: true) {
             [weak self] timer in
 
             print("sent keep alive action: no-op")

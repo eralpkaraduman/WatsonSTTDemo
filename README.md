@@ -30,7 +30,7 @@ You should see the text update as you speak
 - Speech recognition session is managed by: `SpeechRecognition/SpeechRecognitionClient.swift`
 - UI implementation tracks the state by utilizing `SpeechRecognitionClientDelegate`
 - `SpeechRecognition/AudioRecorder.swift` is responsible for recording the sound and outputing as PCM
-- Recording logic is based on [Apple's Recording Audido Guide](https://developer.apple.com/library/content/documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/AQRecord/RecordingAudio.html#//apple_ref/doc/uid/TP40005343-CH4-SW1)
+- Recording logic is based on [Apple's Recording Audio Guide](https://developer.apple.com/library/content/documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/AQRecord/RecordingAudio.html#//apple_ref/doc/uid/TP40005343-CH4-SW1)
 - `SpeechRecognition/SocketClient.swift` is responsible for connecting to and keeping the socket session
 - sends no-op action in every fixed (hardcoded) interval to keep the connection alive
 - `speechRecognitionClient.recognitionModel = .mandarin` sets the language, defaults to english
